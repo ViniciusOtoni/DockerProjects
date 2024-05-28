@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service # Responsável por expor os PODS para requisições de fora ou de outros PODS dentro do cluster.
+metadata: 
+  name: auth-service
+spec:
+  selector:
+    app: auth
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 80
+  type: ClusterIP ## apenas exposto para dentro do container.

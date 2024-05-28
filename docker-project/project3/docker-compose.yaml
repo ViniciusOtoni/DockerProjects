@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    container_name: node-app
+    ports:
+      - '80:80'
+    volumes:
+      - 'logs:/app/logs'
+      - './backend:/app'
+      - '/app/node_modules'
+    depends_on:
+      - mongodb
+      # nome do serviço (container) que é necessário para esse funcionar.
+
+  frontend:
+    build: './frontend'
+    container_name: react-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - './frontend/src:/app/src' 
+    stdin_open: true
+    tty: true
+    ## combinção para o -it (interactive mode)
+    depends_on:
+      - backend
+
+  mongodb:
+    image: 'mongo'
+    container_name: mongodb
+    volumes: 
+      - data:/data/db
+    # networks:
+      # - netcom 
+      # ELE JA CRIA UMA NETWORK DEFAULT CONECTANDO TODOS OS CONTAINERS CRIADOS PELO ARQUIVO NELA!!
+      # ENTÃO NÃO É NESCESSÁRIO PASSAR E CRIAR UMA NETWORK SUA, JÁ QUE VAI CRIAR ESSA PADRÃO.
+
+volumes:
+  data:
+  logs:
+  ## apenas os volumes nomeados aqui, bind mount e anonymous volumes nn

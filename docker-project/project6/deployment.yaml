@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment ## Deployment, Service ...
+metadata: ## dados do deployment
+  name: second-deploy   
+spec: # especificação, como o deploy deve ser configurado
+  replicas: 1 ## quantidade de PODS lançados]
+  selector: ## seleciona os PODS que nescessitam ser controlados.
+    matchLabels:
+      app: second-app  ## todo POD que tiver a característica app com esse nome deve ser controlado por esse Deployment.
+  template:  ## define como o POD deve ser criado
+    metadata:
+      labels:
+        app: second-app
+    spec: ## especificação, como o POD deve ser criado
+      containers:
+        - name: second-container
+          image: viniciusotoni/minikube-deploy 

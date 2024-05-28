@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity: 
+    storage: 1Gi ##capacidade de armazenamento
+  volumeMode: Filesystem ##Filesystem Block
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce # pode ler e escrever sobre o volume porem apenas por um Node
+   # - ReadOnlyMany # pode ser chamado por diferentes Nodes
+   # - ReadWriteMany # pode ler e escrever sobre o volume por diferentes Nodes
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate

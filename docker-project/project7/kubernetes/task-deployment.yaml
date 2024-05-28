@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-deployment
+spec:
+  replicas: 1 # 1 pod
+  selector: 
+    matchLabels: ## filtar a label
+      app: task
+  template:
+    metadata:
+      labels: ## adicionando label para filtro do POD
+        app: task ## qualquer nome tanto para o valor do obj quanto para o nome da label.
+    spec:
+      containers:
+        - name: task
+          image: viniciusotoni/kube-demo-task:latest
+          env:
+            - name: AUTH_ADDRESS
+              value: "auth-service.default" #. namespace, geralmente é o default.
+            - name: TASK_FOLDER
+              value: tasks
+
+
+

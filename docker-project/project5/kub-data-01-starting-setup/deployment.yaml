@@ -1,0 +1,24 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: story-deployment 
+spec:
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: story-pod
+  template: 
+    metadata:
+      labels:
+        app: story-pod
+    spec:
+      containers: 
+        - name: story-container
+          image: viniciusotoni/minikube-volume:latest
+          volumeMounts: 
+            - mountPath: /app/story ## local que o volume será matindo (/app é do WORKDIR do DockerFile /story é o folder aonde vai guardar as info.)
+              name: story-volume
+      volumes:
+        - name: story-volume
+          persistentVolumeClaim:
+            claimName: host-pvc  

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1 # 1 pod
+  selector: 
+    matchLabels: ## filtar a label
+      app: auth
+  template:
+    metadata:
+      labels: ## adicionando label para filtro do POD
+        app: auth ## qualquer nome tanto para o valor do obj quanto para o nome da label.
+    spec:
+      containers:
+        - name: auth
+          image: viniciusotoni/kube-demo-auth:latest
+
+
+

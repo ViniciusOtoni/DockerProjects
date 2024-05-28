@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1 # 1 pod
+  selector: 
+    matchLabels: ## filtar a label
+      app: users
+  template:
+    metadata:
+      labels: ## adicionando label para filtro do POD
+        app: users ## qualquer nome tanto para o valor do obj quanto para o nome da label.
+    spec:
+      containers:
+        - name: users
+          image: viniciusotoni/kube-demo-users:latest
+          env:
+            - name: AUTH_ADRESS
+              value: "auth-service.default" #. namespace, geralmente é o default.
+
+
+
